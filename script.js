@@ -24,11 +24,11 @@ function generate(char, num, specialChar, capLetter){
     var int = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] //10
     var symbol = ['!','@','#','$','%','^','&','*','(',')','-','_','+','=','{','}']; //16
 
+    //creates empty password array
     var password = []; 
 
     //take the number of characters, sets the limit for the password generator
     for (var i=0; i < char; i++){
-        //var random = Math.floor(Math.random() * 26);
 
         //pulls from 3 arrays - num, special characters, capital Letters
         if ((num == true)&&(specialChar == true)&&(capLetter == true)){
@@ -44,9 +44,13 @@ function generate(char, num, specialChar, capLetter){
         }
         //pull from numbers, special characters
         else if ((num == true)&& (specialChar == true)){
-            var passwordArray= alpha.concat(int, symbol); 
+            //combines arrays 
+            var passwordArray= alpha.concat(int, symbol);
+            
+            //random generates number based on combined lengths
             var random = Math.floor(Math.random() * (int.length + symbol.length + alpha.length)); 
 
+            //generates random password 
             password[i] = passwordArray[random]; 
         }
         //pull from numbers, alpha
@@ -68,8 +72,7 @@ function generate(char, num, specialChar, capLetter){
 
         else if (capLetter == true){ 
            var random = Math.floor(Math.random() * alpha.length);
-
-           password[i] = upperCase[random]; 
+           password[i] = alpha[random].toUpperCase();  
         }
 
         //pull from alpha only
@@ -81,4 +84,11 @@ function generate(char, num, specialChar, capLetter){
     //joins array into string 
     console.log(passwordArray); 
     console.log(password.join(''), ', num = ' + num, 'specialChar = ' + specialChar, 'capLetter = ' + capLetter); 
+
+    //creates new paragraph to display password in display box 
+    var pasEl = document.getElementById('displayBox'); 
+
+    //sets content of pasEl to be password array
+    pasEl.textContent = password.join(''); 
+
 }
