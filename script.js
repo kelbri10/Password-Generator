@@ -15,12 +15,13 @@ function criteria(){
 }
 
 function generate(char, num, specialChar, capLetter){ 
-    alert ('the function works'); 
+    console.log('the function works'); 
     //the total number of characters pulled needs to equal char which is the number of characters the user wants 
     //so num + special + cap + lower = char
 
     //places alphabet into an array
     var alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; //26
+    var upperAlpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N','O','P', 'Q', 'R','S', 'T', 'U', 'V', 'W', 'X', 'Y','Z'] //26
     var int = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] //10
     var symbol = ['!','@','#','$','%','^','&','*','(',')','-','_','+','=','{','}']; //16
 
@@ -34,14 +35,17 @@ function generate(char, num, specialChar, capLetter){
         if ((num == true)&&(specialChar == true)&&(capLetter == true)){
 
             //combines alpha, int, symbol arrays 
-            var passwordArray = alpha.concat(int, symbol); 
+            var passwordArray = alpha.concat(int, symbol, upperAlpha); 
 
             //randomly generates number based on combined lengths 
-            var random = Math.floor(Math.random() * (int.length + symbol.length + alpha.length));
+            var random = Math.floor(Math.random() * (int.length + symbol.length + alpha.length + upperAlpha.length));
 
             //element in password are taken randomly from passwordArray to generate user password 
             password[i] = passwordArray[random]; 
+
+            //checks if password meets criteria of user
         }
+
         //pull from numbers, special characters
         else if ((num == true)&& (specialChar == true)){
             //combines arrays 
@@ -55,24 +59,32 @@ function generate(char, num, specialChar, capLetter){
         }
         //pull from numbers, alpha
         else if ((num == true)&&(capLetter == true)){
-            var passwordArray = alpha.concat(int); 
-            var random = Math.floor(Math.random() * (int.length + alpha.length)); 
+            //combines arrays togehter 
+            var passwordArray = upperAlpha.concat(int); 
+
+            //random generates number based on combined lengths
+            var random = Math.floor(Math.random() * (int.length + upperAlpha.length)); 
 
             //generates user password 
             password[i] = passwordArray[random]; 
         }
 
+        //pulls from special characters and capital letters 
         else if ((specialChar == true)&& capLetter == true){ 
-            var passwordArray = alpha.concat(symbol); 
-            var random = Math.floor(Math.random() * (symbol.length + alpha.length)); 
+            //combines arrays
+            var passwordArray = upperAlpha.concat(symbol); 
 
-        
+            //random generates number on combined lengths
+            var random = Math.floor(Math.random() * (symbol.length + upperAlpha.length)); 
+
+            //generates user password
             password[i] = passwordArray[random]; 
         }
 
+        //pulls from capital letters only
         else if (capLetter == true){ 
-           var random = Math.floor(Math.random() * alpha.length);
-           password[i] = alpha[random].toUpperCase();  
+           var random = Math.floor(Math.random() * upperAlpha.length);
+           password[i] = upperAlpha[random];  
         }
 
         //pull from alpha only
