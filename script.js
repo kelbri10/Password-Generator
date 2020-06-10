@@ -79,10 +79,10 @@ function generate(char, num, specialChar, capLetter){
         //pulls from special characters and capital letters 
         else if ((specialChar == true)&& capLetter == true){ 
             //combines arrays
-            var passwordArray = upperAlpha.concat(symbol); 
+            var passwordArray = alpha.concat(symbol, upperAlpha); 
 
             //random generates number on combined lengths
-            var random = Math.floor(Math.random() * (symbol.length + upperAlpha.length)); 
+            var random = Math.floor(Math.random() * (symbol.length + upperAlpha.length + alpha.length)); 
 
             //generates user password
             password[i] = passwordArray[random]; 
