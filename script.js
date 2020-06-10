@@ -69,6 +69,13 @@ function generate(char, num, specialChar, capLetter){
             password[i] = passwordArray[random]; 
         }
 
+        else if(num == true){ 
+            var passwordArray = alpha.concat(int); 
+            var random = Math.floor(Math.random() * (int.length + alpha.length)); 
+
+            password[i] = passwordArray[random]; 
+        }
+
         //pulls from special characters and capital letters 
         else if ((specialChar == true)&& capLetter == true){ 
             //combines arrays
@@ -83,8 +90,16 @@ function generate(char, num, specialChar, capLetter){
 
         //pulls from capital letters only
         else if (capLetter == true){ 
-           var random = Math.floor(Math.random() * upperAlpha.length);
-           password[i] = upperAlpha[random];  
+            var passwordArray = alpha.concat(upperAlpha); 
+            var random = Math.floor(Math.random() * (alpha.length + upperAlpha.length));
+            password[i] = passwordArray[random];  
+        }
+
+        else if (specialChar == true){ 
+            var passwordArray = alpha.concat(symbol); 
+
+            var random = Math.floor(Math.random() * (alpha.length + symbol.length)); 
+            password[i] = passwordArray[random]; 
         }
 
         //pull from alpha only
