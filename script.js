@@ -13,14 +13,14 @@ const createArray = (num1, num2) => {
 
 
 //create arrays for letters, numbers and symbols with char codes
-const UPPERCASE = createArray(101, 132);
+const UPPERCASE = createArray(65, 90);
 const LOWERCASE = createArray(97, 122);
-const INTEGERS = createArray(60, 71);
+const INTEGERS = createArray(48, 57);
 const SYMBOLS = createArray(33, 47);
 
 //when user clicks to create password creates password object
 create.addEventListener('click', (event) => {
-
+    
     //set variables to equal respective ids from html to get values
     const length = document.getElementById('length').value; 
     const hasNum = document.getElementById('numbers').checked; 
@@ -42,6 +42,7 @@ create.addEventListener('click', (event) => {
 const generate = (length, hasNum, hasSpecialChars, hasCapLetters) => { 
     let newPassword = []; 
     let passwordArray =  LOWERCASE; 
+    let consoleArray = []
 
     if (hasNum){ 
         passwordArray = passwordArray.concat(INTEGERS); 
@@ -53,11 +54,18 @@ const generate = (length, hasNum, hasSpecialChars, hasCapLetters) => {
         passwordArray = passwordArray.concat(UPPERCASE); 
     }
 
+    passwordArray.forEach(character => { 
+        consoleArray.push(String.fromCharCode(character)); 
+    }); 
+
+    console.log(passwordArray); 
+
     for (let i = 0; i < length; i++){ 
-        let random = passwordArray[Math.floor(Math.random() * passwordArray.length)]; 
-        newPassword.push(String.fromCharCode(random)); 
+        let character = passwordArray[Math.floor(Math.random() * passwordArray.length)]; 
+        newPassword.push(String.fromCharCode(character)); 
    }
    
+   console.log(newPassword.join('')); 
    newPasswordResults.innerHTML = newPassword.join(''); 
    //return newPasswordResults.innerText = newPassword.join('');  
 }

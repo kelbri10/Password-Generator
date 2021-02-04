@@ -39,6 +39,5 @@ p{
     border-radius: 25px;
 
     color: black; 
-
-    word-break: break-all; 
+    word-wrap: break-word; 
 }
