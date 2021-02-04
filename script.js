@@ -1,121 +1,66 @@
-//when user clicks button
-//recieves prompt for password criteria 
-function criteria(){ 
 
-    //gathers criteria for password 
-    var char = prompt('How many characters does your password need?'); 
-    
-    //returns true or false
-    var num = confirm('Include numbers?'); 
-    var specialChar = confirm('Include special chracters?'); 
-    var capLetter = confirm('Include capital letters?'); 
-    
-    alert('Password is generating...'); 
-    generate(char, num, specialChar, capLetter);
+const create = document.getElementById('create');
+const newPasswordResults = document.getElementById('result-container');
+
+//initializes function to create arrays for uppercase, lowercase, integers, and symbols 
+const createArray = (num1, num2) => { 
+    let newArray = []; 
+    for (let i = num1; i <= num2; i++){ 
+        newArray.push(i); 
+    }
+    return newArray; 
 }
 
-function generate(char, num, specialChar, capLetter){ 
-    console.log('the function works'); 
-    //the total number of characters pulled needs to equal char which is the number of characters the user wants 
-    //so num + special + cap + lower = char
 
-    //places alphabet into an array
-    var alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; //26
-    var upperAlpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N','O','P', 'Q', 'R','S', 'T', 'U', 'V', 'W', 'X', 'Y','Z'] //26
-    var int = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] //10
-    var symbol = ['!','@','#','$','%','^','&','*','(',')','-','_','+','=','{','}']; //16
+//create arrays for letters, numbers and symbols with char codes
+const UPPERCASE = createArray(101, 132);
+const LOWERCASE = createArray(97, 122);
+const INTEGERS = createArray(60, 71);
+const SYMBOLS = createArray(33, 47);
 
-    //creates empty password array
-    var password = []; 
+//when user clicks to create password creates password object
+create.addEventListener('click', (event) => {
 
-    //take the number of characters, sets the limit for the password generator
-    for (var i=0; i < char; i++){
+    //set variables to equal respective ids from html to get values
+    const length = document.getElementById('length').value; 
+    const hasNum = document.getElementById('numbers').checked; 
+    const hasSpecialChars = document.getElementById('specialCharacters').checked;
+    const hasCapLetters = document.getElementById('capLetters').checked; 
 
-        //pulls from 3 arrays - num, special characters, capital Letters
-        if ((num == true)&&(specialChar == true)&&(capLetter == true)){
+    event.preventDefault(); 
+    console.log(length, hasNum, hasSpecialChars, hasCapLetters); 
+    generate(length, hasNum, hasSpecialChars, hasCapLetters)
+}); 
 
-            //combines alpha, int, symbol arrays 
-            var passwordArray = alpha.concat(int, symbol, upperAlpha); 
+//generate random numwwber
+//generate special character
+//generate capital character 
+//combine all together
+//slice password to password length 
+//return password to use to copy and paste where needed
 
-            //randomly generates number based on combined lengths 
-            var random = Math.floor(Math.random() * (int.length + symbol.length + alpha.length + upperAlpha.length));
+const generate = (length, hasNum, hasSpecialChars, hasCapLetters) => { 
+    let newPassword = []; 
+    let passwordArray =  LOWERCASE; 
 
-            //element in password are taken randomly from passwordArray to generate user password 
-            password[i] = passwordArray[random]; 
+    if (hasNum){ 
+        passwordArray = passwordArray.concat(INTEGERS); 
+    }
+    if (hasSpecialChars){ 
+        passwordArray = passwordArray.concat(SYMBOLS); 
+    }
+    if (hasCapLetters){  
+        passwordArray = passwordArray.concat(UPPERCASE); 
+    }
 
-            //checks if password meets criteria of user
-        }
-
-        //pull from numbers, special characters
-        else if ((num == true)&& (specialChar == true)){
-            //combines arrays 
-            var passwordArray= alpha.concat(int, symbol);
-            
-            //random generates number based on combined lengths
-            var random = Math.floor(Math.random() * (int.length + symbol.length + alpha.length)); 
-
-            //generates random password 
-            password[i] = passwordArray[random]; 
-        }
-        //pull from numbers, alpha
-        else if ((num == true)&&(capLetter == true)){
-            //combines arrays togehter 
-            var passwordArray = upperAlpha.concat(int); 
-
-            //random generates number based on combined lengths
-            var random = Math.floor(Math.random() * (int.length + upperAlpha.length)); 
-
-            //generates user password 
-            password[i] = passwordArray[random]; 
-        }
-
-        else if(num == true){ 
-            var passwordArray = alpha.concat(int); 
-            var random = Math.floor(Math.random() * (int.length + alpha.length)); 
-
-            password[i] = passwordArray[random]; 
-        }
-
-        //pulls from special characters and capital letters 
-        else if ((specialChar == true)&& capLetter == true){ 
-            //combines arrays
-            var passwordArray = alpha.concat(symbol, upperAlpha); 
-
-            //random generates number on combined lengths
-            var random = Math.floor(Math.random() * (symbol.length + upperAlpha.length + alpha.length)); 
-
-            //generates user password
-            password[i] = passwordArray[random]; 
-        }
-
-        //pulls from capital letters only
-        else if (capLetter == true){ 
-            var passwordArray = alpha.concat(upperAlpha); 
-            var random = Math.floor(Math.random() * (alpha.length + upperAlpha.length));
-            password[i] = passwordArray[random];  
-        }
-
-        else if (specialChar == true){ 
-            var passwordArray = alpha.concat(symbol); 
-
-            var random = Math.floor(Math.random() * (alpha.length + symbol.length)); 
-            password[i] = passwordArray[random]; 
-        }
-
-        //pull from alpha only
-        else{ 
-            password[i] = alpha[random];
-        }
-    } 
-
-    //joins array into string 
-    console.log(passwordArray); 
-    console.log(password.join(''), ', num = ' + num, 'specialChar = ' + specialChar, 'capLetter = ' + capLetter); 
-
-    //creates new paragraph to display password in display box 
-    var pasEl = document.getElementById('displayBox'); 
-
-    //sets content of pasEl to be password array
-    pasEl.textContent = password.join(''); 
-
+    for (let i = 0; i < length; i++){ 
+        let random = passwordArray[Math.floor(Math.random() * passwordArray.length)]; 
+        newPassword.push(String.fromCharCode(random)); 
+   }
+   
+   newPasswordResults.innerHTML = newPassword.join(''); 
+   //return newPasswordResults.innerText = newPassword.join('');  
 }
+   
+
+

@@ -5,21 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <script src="script.js"></script> 
-    <div class="container"> 
-        <h1>Generate a Password</h1>
-        <hr> 
 
-        <p id="displayBox">Your Secure Password</p>
+    <div class = 'create-container'> 
+        
+        
+            <label for='length'>How many characters do you need?</label><br><br>
+            <input type='text' id='length' name='length' value = 'Between 8 - 128 characters'><br><br>
+        
+            <label for='numbers'>
+                <input id='numbers' type='checkbox' name='numbers'> Include numbers
+            </label><br><br>
 
-        <hr>
+            <label for='specialCharacters'>
+                <input id='specialCharacters' type='checkbox' name='specialCharacters'> Include special characters
+            </label><br><br>
 
-        <button id="submit" onclick="criteria()">Generate Password</button>
+            <label for='capLetters'>
+                <input id='capLetters' type='checkbox' name='capLetters'> Include capital letters
+            </label><br><br>
+
+            <button id = 'create'> Create Password </button>
+
     </div>
+
+    <p>Your new password is: </p>
+    <div id = 'result-container'>
+    </div>
+
+
+    <script src="script.js"></script> 
+    
 
 </body>
 </html>
